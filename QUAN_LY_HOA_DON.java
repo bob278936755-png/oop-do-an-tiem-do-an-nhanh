@@ -2,7 +2,7 @@ package DO_AN_OOP;
 import java.awt.*;
 import javax.swing.*;
 
-public class QUANLYHOADON extends JFrame {
+public class QUAN_LY_HOA_DON extends JFrame {
 
     JTextField txtMa = new JTextField();
     JTextField txtKhach = new JTextField();
@@ -20,7 +20,7 @@ public class QUANLYHOADON extends JFrame {
     HOA_DON hoaDon;
     THANH_TOAN thanhToan;
 
-    public QUANLYHOADON() {
+    public QUAN_LY_HOA_DON() {
         setTitle("QUAN LY HOA DON & THANH TOAN");
         setSize(650, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,7 +137,7 @@ public class QUANLYHOADON extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new QUANLYHOADON().setVisible(true);
+            new QUAN_LY_HOA_DON().setVisible(true);
         });
     }
 }
