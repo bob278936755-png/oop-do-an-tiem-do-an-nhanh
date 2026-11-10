@@ -52,4 +52,9 @@ public class SanPham {
         }
         this.danhMuc = danhMuc;
     }
+
+    @Override
+    public String toString() {
+        return ma + " - " + ten;
+    }
 }

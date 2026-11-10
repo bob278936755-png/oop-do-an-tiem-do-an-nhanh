@@ -15,6 +15,44 @@ public class QuanLySanPham {
         DANH_SACH.them(new SanPham("SP03", "Trà đào", 25000, DANH_MUC[1]));
     }
 
+    private static final java.util.ArrayList<DanhMuc> danhMuc =
+            new java.util.ArrayList<>(java.util.Arrays.asList(DANH_MUC));
+
+    public static DanhMuc[] getDanhMuc() {
+        return danhMuc.toArray(new DanhMuc[0]);
+    }
+
+    public static SanPham[] getSanPham() {
+        return DANH_SACH.getDanhSach();
+    }
+
+    public static void them(SanPham sp) { DANH_SACH.them(sp); }
+
+    public static void sua(String ma, String ten, long gia, DanhMuc dm) {
+        DANH_SACH.sua(ma, ten, gia, dm);
+    }
+
+    public static void xoa(String ma) { DANH_SACH.xoa(ma); }
+
+    public static void themDanhMuc(String ma, String ten) {
+        DanhMuc moi = new DanhMuc(ma, ten);
+        for (DanhMuc dm : danhMuc) {
+            if (dm.getMa().equalsIgnoreCase(moi.getMa())) {
+                throw new IllegalArgumentException("Mã danh mục đã tồn tại.");
+            }
+        }
+        danhMuc.add(moi);
+    }
+
+    public static void xoaDanhMuc(DanhMuc dm) {
+        for (SanPham sp : getSanPham()) {
+            if (sp.getDanhMuc() == dm) {
+                throw new IllegalArgumentException("Danh mục đang có sản phẩm.");
+            }
+        }
+        danhMuc.remove(dm);
+    }
+
     public static SanPham timTheoMa(String ma) {
         return DANH_SACH.timTheoMa(ma);
     }
@@ -42,8 +80,8 @@ public class QuanLySanPham {
     }
 
     private static void hienThiDanhMuc() {
-        for (int i = 0; i < DANH_MUC.length; i++) {
-            System.out.printf("%d. %s - %s%n", i + 1, DANH_MUC[i].getMa(), DANH_MUC[i].getTen());
+        for (int i = 0; i < danhMuc.size(); i++) {
+            System.out.printf("%d. %s - %s%n", i + 1, danhMuc.get(i).getMa(), danhMuc.get(i).getTen());
         }
     }
 
@@ -58,11 +96,11 @@ public class QuanLySanPham {
             hienThiDanhMuc();
             System.out.print("Chọn số thứ tự danh mục: ");
             int viTri = Integer.parseInt(scanner.nextLine().trim()) - 1;
-            if (viTri < 0 || viTri >= DANH_MUC.length) {
+            if (viTri < 0 || viTri >= danhMuc.size()) {
                 System.out.println("Danh mục không hợp lệ.");
                 return;
             }
-            DANH_SACH.them(new SanPham(ma, ten, giaBan, DANH_MUC[viTri]));
+            DANH_SACH.them(new SanPham(ma, ten, giaBan, danhMuc.get(viTri)));
             System.out.println("Đã thêm sản phẩm.");
         } catch (NumberFormatException e) {
             System.out.println("Giá bán và lựa chọn danh mục phải là số nguyên.");

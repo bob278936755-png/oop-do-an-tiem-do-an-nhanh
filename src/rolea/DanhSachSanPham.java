@@ -23,6 +23,32 @@ public class DanhSachSanPham {
         return null;
     }
 
+    public SanPham[] getDanhSach() {
+        return java.util.Arrays.copyOf(danhSach, soLuong);
+    }
+
+    public void sua(String ma, String ten, long gia, DanhMuc danhMuc) {
+        SanPham cu = timTheoMa(ma);
+        if (cu == null) {
+            throw new IllegalArgumentException("Không tìm thấy sản phẩm.");
+        }
+        SanPham moi = new SanPham(ma, ten, gia, danhMuc);
+        cu.setTen(moi.getTen());
+        cu.setGiaBan(moi.getGiaBan());
+        cu.setDanhMuc(moi.getDanhMuc());
+    }
+
+    public void xoa(String ma) {
+        for (int i = 0; i < soLuong; i++) {
+            if (danhSach[i].getMa().equalsIgnoreCase(ma)) {
+                System.arraycopy(danhSach, i + 1, danhSach, i, soLuong - i - 1);
+                danhSach[--soLuong] = null;
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Không tìm thấy sản phẩm.");
+    }
+
     public void hienThi() {
         System.out.printf("%-10s %-24s %12s  %s%n", "Mã", "Tên sản phẩm", "Giá (đ)", "Danh mục");
         for (int i = 0; i < soLuong; i++) {
